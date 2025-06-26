@@ -1,0 +1,77 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "MCP Server",
+    "description": "MCP server",
+    "version": "1.0",
+    "contact": {
+      "name": "MCP Server",
+      "url": "http://localhost:3000"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/sse": {
+      "get": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "sse",
+        "description": "sse",
+        "operationId": "sse",
+        "responses": {
+          "200": {
+            "description": "null"
+          }
+        }
+      }
+    },
+    "/message": {
+      "post": {
+        "tags": [
+          "MCP"
+        ],
+        "summary": "message",
+        "description": "message",
+        "operationId": "message",
+        "responses": {
+          "200": {
+            "description": "null"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "MCP",
+      "description": "MCP server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "apiKeyHeader": {
+        "type": "apiKey",
+        "name": "subscription-key",
+        "in": "header"
+      },
+      "apiKeyQuery": {
+        "type": "apiKey",
+        "name": "api-key",
+        "in": "query"
+      }
+    }
+  },
+  "security": [
+    {
+      "apiKeyHeader": []
+    },
+    {
+      "apiKeyQuery": []
+    }
+  ]
+}

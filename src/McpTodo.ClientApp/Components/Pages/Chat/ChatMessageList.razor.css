@@ -1,0 +1,63 @@
+﻿.message-list-container {
+    margin: 2rem 1.5rem;
+    flex-grow: 1;
+    position: relative;
+}
+
+.message-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1rem 0;
+}
+
+.no-messages {
+    text-align: center;
+    font-size: 1.125rem;
+    color: var(--text-muted);
+    margin-top: calc(40vh - 18rem);
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.6;
+}
+
+.no-messages::before {
+    content: '💬';
+    display: block;
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+}
+
+chat-messages > ::deep div:last-of-type {
+    /* Adds some vertical buffer so that suggestions don't overlap the output when they appear */
+    margin-bottom: 3rem;
+}
+
+/* Smooth scroll behavior */
+chat-messages {
+    scroll-behavior: smooth;
+}
+
+/* Loading animation for new messages */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.message-list > * {
+    animation: fadeInUp 0.4s ease-out;
+}

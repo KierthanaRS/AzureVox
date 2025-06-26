@@ -1,0 +1,136 @@
+@using Microsoft.Extensions.AI
+@inject IJSRuntime JS
+@using Microsoft.JSInterop
+@implements IAsyncDisposable
+
+<EditForm Model="@this" OnValidSubmit="@SendMessageAsync">
+    <div class="input-container">
+        <label class="input-box page-width">
+            <textarea @ref="@textArea" @bind="@messageText" placeholder="Ask me about your Azure resources..." rows="1"></textarea>
+
+            <div class="tools">
+                <button type="button" title="@(isListening ? "Stop recording" : "Start voice input")" class="voice-button @(isListening ? "listening" : "")" @onclick="@ToggleVoiceInputAsync">
+                    @if (isListening)
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="tool-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 7.5A2.25 2.25 0 0 1 7.5 5.25h9a2.25 2.25 0 0 1 2.25 2.25v9a2.25 2.25 0 0 1-2.25 2.25h-9a2.25 2.25 0 0 1-2.25-2.25v-9Z" />
+                        </svg>
+                        <span class="listening-text">Listening...</span>
+                    }
+                    else
+                    {
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="tool-icon">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 0 1 6 0v8.25a3 3 0 0 1-3 3Z" />
+                        </svg>
+                    }
+                </button>
+                
+                <button type="submit" title="Send message" class="send-button" disabled="@(string.IsNullOrWhiteSpace(messageText))">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="tool-icon">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
+                    </svg>
+                </button>
+            </div>
+        </label>
+    </div>
+</EditForm>
+
+@code {
+    private ElementReference textArea;
+    private string? messageText;
+    private bool isListening = false;
+    private IJSObjectReference? jsModule;
+
+    [Parameter]
+    public EventCallback<ChatMessage> OnSend { get; set; }
+
+    public ValueTask FocusAsync()
+        => textArea.FocusAsync();
+
+    private async Task SendMessageAsync()
+    {
+        if (messageText is { Length: > 0 } text)
+        {
+            messageText = null;
+            await OnSend.InvokeAsync(new ChatMessage(ChatRole.User, text));
+        }
+    }
+
+    private async Task ToggleVoiceInputAsync()
+    {
+        if (jsModule != null)
+        {
+            if (isListening)
+            {
+                await jsModule.InvokeVoidAsync("stopListening");
+                isListening = false;
+            }
+            else
+            {
+                var result = await jsModule.InvokeAsync<bool>("startListening");
+                if (result)
+                {
+                    isListening = true;
+                    StateHasChanged();
+                }
+            }
+        }
+    }
+
+    [JSInvokable]
+    public async Task OnVoiceResult(string text)
+    {
+        if (!string.IsNullOrWhiteSpace(text))
+        {
+            messageText = text;
+            StateHasChanged();
+            await Task.Delay(100); // Small delay to ensure UI update
+            await SendMessageAsync();
+        }
+    }
+
+    [JSInvokable]
+    public void OnVoiceEnd()
+    {
+        isListening = false;
+        StateHasChanged();
+    }
+
+    [JSInvokable]
+    public void OnVoiceError(string error)
+    {
+        isListening = false;
+        StateHasChanged();
+        // Could add error handling/display here
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            try
+            {
+                jsModule = await JS.InvokeAsync<IJSObjectReference>("import", "./Components/Pages/Chat/ChatInput.razor.js");
+                await jsModule.InvokeVoidAsync("init", textArea, DotNetObjectReference.Create(this));
+            }
+            catch (JSDisconnectedException)
+            {
+            }
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (jsModule != null)
+        {
+            try
+            {
+                await jsModule.InvokeVoidAsync("dispose");
+                await jsModule.DisposeAsync();
+            }
+            catch (JSDisconnectedException)
+            {
+            }
+        }
+    }
+}

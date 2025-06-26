@@ -1,0 +1,274 @@
+﻿.user-message {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    align-self: flex-end;
+    min-width: 25%;
+    max-width: calc(100% - 5rem);
+    padding: 1rem 1.25rem;
+    border-radius: 1.25rem 1.25rem 0.25rem 1.25rem;
+    color: white;
+    white-space: pre-wrap;
+    font-weight: 500;
+    box-shadow: 0 4px 6px -1px rgba(102, 126, 234, 0.3);
+    position: relative;
+    margin: 0.75rem 0;
+}
+
+.user-message::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.assistant-message, .assistant-search {
+    display: grid;
+    grid-template-rows: min-content;
+    grid-template-columns: 2.5rem minmax(0, 1fr);
+    gap: 0.75rem;
+    margin: 1rem 0;
+}
+
+.assistant-message-header {
+    font-weight: 600;
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+}
+
+.assistant-message-text {
+    grid-column-start: 2;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 1rem 1.25rem;
+    border-radius: 1.25rem 1.25rem 1.25rem 0.25rem;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+.assistant-message-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    box-shadow: 0 4px 6px -1px rgba(102, 126, 234, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.assistant-message-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1));
+    border-radius: inherit;
+}
+
+.assistant-message-icon svg {
+    width: 1.125rem;
+    height: 1.125rem;
+    z-index: 1;
+    position: relative;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+}
+
+.assistant-search {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    opacity: 0.8;
+}
+
+.assistant-search-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 2rem;
+    height: 2rem;
+    background: rgba(156, 163, 175, 0.1);
+    border-radius: 50%;
+    color: var(--text-muted);
+}
+
+.assistant-search-icon svg {
+    width: 1rem;
+    height: 1rem;
+}
+
+.assistant-search-content {
+    align-content: center;
+    background: rgba(248, 250, 252, 0.8);
+    backdrop-filter: blur(10px);
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(226, 232, 240, 0.6);
+}
+
+.assistant-search-phrase {
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+/* Enhanced markdown styling for assistant messages */
+::deep ul {
+    list-style-type: disc;
+    margin: 1rem 0 1rem 1.5rem;
+    color: var(--text-primary);
+}
+
+::deep ol {
+    list-style-type: decimal;
+    margin: 1rem 0 1rem 1.5rem;
+    color: var(--text-primary);
+}
+
+::deep li {
+    margin: 0.5rem 0;
+    line-height: 1.6;
+}
+
+::deep li::marker {
+    color: var(--text-muted);
+}
+
+::deep strong {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+::deep em {
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+::deep h3 {
+    margin: 1.5rem 0 1rem 0;
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: var(--text-primary);
+    border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+    padding-bottom: 0.5rem;
+}
+
+::deep h4 {
+    margin: 1rem 0 0.5rem 0;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+::deep p + p {
+    margin-top: 1rem;
+}
+
+::deep code {
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+    font-size: 0.875em;
+    font-weight: 500;
+}
+
+::deep pre {
+    background: rgba(15, 23, 42, 0.95);
+    color: #e2e8f0;
+    padding: 1rem;
+    border-radius: 0.75rem;
+    overflow-x: auto;
+    margin: 1rem 0;
+    border: 1px solid rgba(226, 232, 240, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+::deep pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    border-radius: 0;
+}
+
+::deep blockquote {
+    border-left: 4px solid rgba(102, 126, 234, 0.3);
+    margin: 1rem 0;
+    padding: 0.5rem 0 0.5rem 1rem;
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-style: italic;
+    color: var(--text-secondary);
+}
+
+::deep table {
+    margin: 1rem 0;
+    border-collapse: collapse;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+::deep th {
+    background: rgba(102, 126, 234, 0.1);
+    padding: 0.75rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+::deep td {
+    padding: 0.75rem;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.5);
+    color: var(--text-primary);
+}
+
+::deep tr:last-child td {
+    border-bottom: none;
+}
+
+::deep a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid rgba(102, 126, 234, 0.3);
+    transition: all 0.2s ease;
+}
+
+::deep a:hover {
+    color: #764ba2;
+    border-bottom-color: #764ba2;
+}
+
+::deep th {
+    text-align: left;
+    border-bottom: 1px solid silver;
+}
+
+::deep th, ::deep td {
+    padding: 0.1rem 0.5rem;
+}
+
+::deep th, ::deep tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+::deep pre > code {
+    background-color: white;
+    display: block;
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+}

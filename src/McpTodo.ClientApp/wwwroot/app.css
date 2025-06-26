@@ -1,0 +1,168 @@
+@import url('lib/tailwindcss/dist/preflight.css');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --accent-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --surface-color: #ffffff;
+    --surface-hover: #f8fafc;
+    --border-color: #e2e8f0;
+    --text-primary: #1a202c;
+    --text-secondary: #4a5568;
+    --text-muted: #718096;
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+html {
+    min-height: 100vh;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-feature-settings: 'cv11', 'ss01';
+    font-variation-settings: 'opsz' 32;
+}
+
+html, .main-background-gradient {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    position: relative;
+}
+
+html::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(245, 87, 108, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 80%, rgba(79, 172, 254, 0.1) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    color: var(--text-primary);
+    line-height: 1.6;
+}
+
+html::after {
+    content: '';
+    background: var(--primary-gradient);
+    width: 100%;
+    height: 3px;
+    position: fixed;
+    top: 0;
+    z-index: 1000;
+    box-shadow: var(--shadow-md);
+}
+
+h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    font-weight: 700;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.025em;
+}
+
+h1:focus {
+    outline: none;
+}
+
+.valid.modified:not([type=checkbox]) {
+    outline: 2px solid #10b981;
+    outline-offset: 2px;
+}
+
+.invalid {
+    outline: 2px solid #ef4444;
+    outline-offset: 2px;
+}
+
+.validation-message {
+    color: #ef4444;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.blazor-error-boundary {
+    background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+    border: 1px solid #f87171;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin: 1rem;
+    color: #991b1b;
+    box-shadow: var(--shadow-md);
+}
+
+.blazor-error-boundary::after {
+    content: "An error has occurred. Please try refreshing the page.";
+    font-weight: 500;
+}
+
+.btn-default {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
+    font-size: 0.875rem;
+    font-weight: 500;
+    background: var(--surface-color);
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+}
+
+.btn-default:hover {
+    background: var(--surface-hover);
+    border-color: #cbd5e1;
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+}
+
+.btn-default:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-subtle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.875rem;
+    border-radius: 0.5rem;
+    border: 1px solid transparent;
+    font-size: 0.875rem;
+    font-weight: 400;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    color: var(--text-secondary);
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.btn-subtle:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(102, 126, 234, 0.3);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-1px);
+}
+
+.page-width {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}

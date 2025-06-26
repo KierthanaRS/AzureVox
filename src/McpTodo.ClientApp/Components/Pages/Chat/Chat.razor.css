@@ -1,0 +1,27 @@
+.chat-container {
+    position: sticky;
+    bottom: 0;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 0 -4px 6px -1px rgba(0, 0, 0, 0.1), 0 -2px 4px -1px rgba(0, 0, 0, 0.06);
+    z-index: 10;
+}
+
+.chat-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.1) 100%);
+    pointer-events: none;
+}
+
+@media (max-width: 768px) {
+    .chat-container {
+        padding: 0.75rem;
+    }
+}
